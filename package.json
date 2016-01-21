@@ -1,0 +1,23 @@
+{
+  "name": "vr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgun/vr-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgun/vr-test/issues"
+  },
+  "homepage": "https://github.com/bgun/vr-test#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
