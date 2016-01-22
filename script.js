@@ -35,11 +35,8 @@ var game = {
       color: 0xDDDDDD,
       shading: THREE.FlatShading
     }),
-    groundMaterial: new THREE.MeshLambertMaterial({
-      color: 0xFFFFFF,
-    }),
     badguyMaterial: new THREE.MeshPhongMaterial({
-      color: 0x555555,
+      color: 0xFF0000,
       metal: true,
       shininess: 90
     }),
@@ -125,9 +122,8 @@ var init = function() {
 
   scene = new THREE.Scene();
 
-  camera = new THREE.PerspectiveCamera(90, 1, 0.001, 700);
-  camera.position.set(0, 10, 0);
-  camera.lookAt(new THREE.Vector3(0,0,0));
+  camera = new THREE.PerspectiveCamera(90, 1, 0.001, 2000);
+  camera.position.set(0, 20, 0);
   scene.add(camera);
 
   controls = new THREE.OrbitControls(camera, element);
@@ -159,10 +155,27 @@ var init = function() {
 
   setTimeout(resize, 1);
 
+  var texture = THREE.ImageUtils.loadTexture(
+    'textures/patterns/checker.png'
+  );
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat = new THREE.Vector2(50, 50);
+  texture.anisotropy = renderer.getMaxAnisotropy();
+
+  var groundMaterial = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    specular: 0xffffff,
+    shininess: 20,
+    shading: THREE.FlatShading,
+    map: texture
+  });
+
   var ground = new THREE.Mesh(
     new THREE.PlaneGeometry(4000,4000,100,100),
-    game.materials.groundMaterial
+    groundMaterial
   );
+
   ground.rotation.x = -(90*(Math.PI/180));
   ground.position.setY(0);
   ground.receiveShadow = true;
@@ -176,7 +189,7 @@ var init = function() {
   fillLight2.position.set(1000,300,-300);
 
   // populate the scene
-  scene.add(game.makeTurret());
+  //scene.add(game.makeTurret());
   scene.add(ground);
   scene.add(keyLight);
   scene.add(fillLight1);
